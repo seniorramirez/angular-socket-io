@@ -106,6 +106,7 @@ function AppCtrl($scope, socket) {
     $scope.newChatRoom = function(idSocket){
         if(idSocket == $scope.idSocket){
             alert("no se puede chatear consigo mismo, no sea tonto.");
+          return;
         }
         socket.emit('send:messageprivate',{
             idSocketTo : idSocket,
@@ -114,3 +115,5 @@ function AppCtrl($scope, socket) {
         })
     }
 }
+
+app.controller('appCtrl',AppCtrl);

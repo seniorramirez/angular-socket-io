@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Socket</title>
+  <link rel="stylesheet" href="public/css/app.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+</head>
+<body ng-controller="appCtrl">
+  
+  <div class="container">
+    <h1>Angular-Socket-Io</h1>
+    <hr>
+    
+    <div class="col-xm-12 col-sm-12 col-md-6 col-lg-6 boder-info padding-rigth heigth-max"  >
+     <h3>Mensajes:</h3>
+      <p ng-repeat='message in messages' ng-class='{alert: message.user == "chatroom", red: message.type == "private"}'> {{message.user}}: {{message.text}}</p>
+    </div>
+    <div class="col-xm-12 col-sm-12 col-md-6 col-lg-6 boder-info padding-rigth heigth-max">
+      <h3>User:</h3>
+      <p ng-repeat='user in users' ng-click='newChatRoom(user.idSocket)' style='cursor:pointer;'> {{user.name}}</p>
+    </div>
+  </div>
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script src="public/js/lib/angular/angular.js"></script>
+  <script src="public/js/app.js"></script>
+  <script src="public/js/services.js"></script>
+  <script src="public/js/controllers.js"></script>
+  <script src="public/js/filters.js"></script>
+  <script src="public/js/directives.js"></script>
+  
+</body>
+</html>

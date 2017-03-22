@@ -22,3 +22,15 @@
 .red {
   color:darkred;
 }
+
+.boder-info {
+  border: 1px solid #31708f;
+}
+
+.padding-rigth{
+  padding-right: 5px;
+}
+
+.heigth-max{
+  height: 500px;
+}
