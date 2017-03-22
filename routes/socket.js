@@ -2,24 +2,24 @@
 var userNames = (function () {
   var names = {};
 
-  var claim = function (name,idSocket) {
+  var claim = function (name,socket) {
     if (!name || names[name]) {
       return false;
     } else {
-      names[name] = idSocket;
+      names[name] = socket;
       return true;
     }
   };
 
   // find the lowest unused "guest" name and claim it
-  var getGuestName = function (idSocket) {
+  var getGuestName = function (socket) {
     var name,
       nextUserId = 1;
 
     do {
       name = 'Guest ' + nextUserId;
       nextUserId += 1;
-    } while (!claim(name,idSocket));
+    } while (!claim(name,socket));
 
     return name;
   };
@@ -29,12 +29,20 @@ var userNames = (function () {
     var res = [];
     
     for (user in names) {
-      res.push({name:user,idSocket:names[user]});
+      res.push({name:user,idSocket:names[user].id});
     }
       console.log(res);
     return res;
   };
-
+  
+  var getSocket = function (idSocket){
+    for (user in names) {
+      if(names[user].id == idSocket){
+        return names[user];
+      }
+    }
+  }
+  
   var free = function (name) {
     if (names[name]) {
       delete names[name];
@@ -45,14 +53,15 @@ var userNames = (function () {
     claim: claim,
     free: free,
     get: get,
-    getGuestName: getGuestName
+    getGuestName: getGuestName,
+    getSocket: getSocket
   };
 }());
 
 // export function for listening to the socket
 module.exports = function (socket) {
     
-  var name = userNames.getGuestName(socket.id);
+  var name = userNames.getGuestName(socket);
     
 
   // send the new user their name and a list of users
@@ -78,10 +87,12 @@ module.exports = function (socket) {
     
   // messagePrivate 
   socket.on('send:messageprivate',function(data){
-    io.sockets.socket(data.idSocketTo).emit('send:messageprivate',{
+    var socketEppah = userNames.getSocket(data.idSocketTo);
+    
+    socketEppah.emit('send:messageprivate',{
       nameForm: data.nameForm,
       message: 'Hola perra',
-      idSocketTo : data.idSocketTo
+      idSocketTo : data.idSocketForm
     });       
   });
 

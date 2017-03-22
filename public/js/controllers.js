@@ -8,11 +8,9 @@ function AppCtrl($scope, socket) {
   // ================
     $scope.users = [];
   socket.on('init', function (data) {
-      console.log(data);
     $scope.name = data.name;
     $scope.users = data.users;
     $scope.idSocket = data.idSocket;
-      console.log($scope.users);
   });
 
   socket.on('send:message', function (message) {
@@ -20,7 +18,7 @@ function AppCtrl($scope, socket) {
   });
     
   socket.on('send:messageprivate', function (data) {
-    console.log('messageprivate',data);
+    $scope.messages.push({user:data.nameForm,text:data.message,type:"private",idSocket:data.idSocketTo});
   });
 
   socket.on('change:name', function (data) {
