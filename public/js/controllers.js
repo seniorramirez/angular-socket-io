@@ -114,6 +114,25 @@ function AppCtrl($scope, socket) {
             nameForm: $scope.name
         })
     }
+    
+    $scope.sendPublicMessage = function(message){
+        if(message == ""){
+            return;
+        }
+        socket.emit('send:message', {
+            message: message
+        });
+
+        // add the message to our model locally
+        $scope.messages.push({
+            user: $scope.name,
+            text: message
+        });
+
+        // clear message box
+        $scope.messagePublic = '';
+    }
+
 }
 
 app.controller('appCtrl',AppCtrl);

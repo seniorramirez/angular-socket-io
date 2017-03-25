@@ -16,6 +16,12 @@
     <div class="col-xm-12 col-sm-12 col-md-6 col-lg-6 boder-info padding-rigth heigth-max"  >
      <h3>Mensajes:</h3>
       <p ng-repeat='message in messages' ng-class='{alert: message.user == "chatroom", red: message.type == "private"}'> {{message.user}}: {{message.text}}</p>
+      <div class="input-group">
+          <input type="text" class="form-control" placeholder="Escribir Mensaje Publico" aria-describedby="basic-addon2">
+          <span class="input-group-btn" >
+              <button class="btn btn-primary" type="button">Enviar</button>
+          </span>
+      </div>
     </div>
     <div class="col-xm-12 col-sm-12 col-md-6 col-lg-6 boder-info padding-rigth heigth-max">
       <h3>User:</h3>
